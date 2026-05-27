@@ -1,6 +1,12 @@
+import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Layout } from './components/layout/Layout'
 import { Login } from './pages/Login'
+
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const authed = localStorage.getItem('ha_auth') === '1'
+  return authed ? <>{children}</> : <Navigate to="/login" replace />
+}
 import { Dashboard } from './pages/Dashboard'
 import { AgentList } from './pages/agents/AgentList'
 import { AgentDetail } from './pages/agents/AgentDetail'
@@ -21,106 +27,20 @@ export function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
-        <Route
-          path="/dashboard"
-          element={
-            <Layout>
-              <Dashboard />
-            </Layout>
-          }
-        />
-        <Route
-          path="/agents"
-          element={
-            <Layout>
-              <AgentList />
-            </Layout>
-          }
-        />
-        <Route
-          path="/agents/create"
-          element={<CreateAgent />}
-        />
-        <Route
-          path="/agents/:id"
-          element={
-            <Layout>
-              <AgentDetail />
-            </Layout>
-          }
-        />
-        <Route
-          path="/agents/:id/edit"
-          element={
-            <Layout>
-              <EditAgent />
-            </Layout>
-          }
-        />
-        <Route
-          path="/campaigns"
-          element={
-            <Layout>
-              <CampaignList />
-            </Layout>
-          }
-        />
-        <Route
-          path="/campaigns/:id"
-          element={
-            <Layout>
-              <CampaignDetail />
-            </Layout>
-          }
-        />
-        <Route
-          path="/invocations"
-          element={
-            <Layout>
-              <InvocationList />
-            </Layout>
-          }
-        />
-        <Route
-          path="/invocations/:id"
-          element={
-            <Layout>
-              <InvocationDetail />
-            </Layout>
-          }
-        />
-        <Route
-          path="/knowledge-base"
-          element={
-            <Layout>
-              <KnowledgeBaseList />
-            </Layout>
-          }
-        />
-        <Route
-          path="/api-keys"
-          element={
-            <Layout>
-              <ApiKeysList />
-            </Layout>
-          }
-        />
-        <Route
-          path="/tools"
-          element={
-            <Layout>
-              <ToolsList />
-            </Layout>
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-            <Layout>
-              <Settings />
-            </Layout>
-          }
-        />
+
+        <Route path="/dashboard"    element={<ProtectedRoute><Layout><Dashboard /></Layout></ProtectedRoute>} />
+        <Route path="/agents"       element={<ProtectedRoute><Layout><AgentList /></Layout></ProtectedRoute>} />
+        <Route path="/agents/create" element={<ProtectedRoute><CreateAgent /></ProtectedRoute>} />
+        <Route path="/agents/:id"   element={<ProtectedRoute><Layout><AgentDetail /></Layout></ProtectedRoute>} />
+        <Route path="/agents/:id/edit" element={<ProtectedRoute><Layout><EditAgent /></Layout></ProtectedRoute>} />
+        <Route path="/campaigns"    element={<ProtectedRoute><Layout><CampaignList /></Layout></ProtectedRoute>} />
+        <Route path="/campaigns/:id" element={<ProtectedRoute><Layout><CampaignDetail /></Layout></ProtectedRoute>} />
+        <Route path="/invocations"  element={<ProtectedRoute><Layout><InvocationList /></Layout></ProtectedRoute>} />
+        <Route path="/invocations/:id" element={<ProtectedRoute><Layout><InvocationDetail /></Layout></ProtectedRoute>} />
+        <Route path="/knowledge-base" element={<ProtectedRoute><Layout><KnowledgeBaseList /></Layout></ProtectedRoute>} />
+        <Route path="/api-keys"     element={<ProtectedRoute><Layout><ApiKeysList /></Layout></ProtectedRoute>} />
+        <Route path="/tools"        element={<ProtectedRoute><Layout><ToolsList /></Layout></ProtectedRoute>} />
+        <Route path="/settings"     element={<ProtectedRoute><Layout><Settings /></Layout></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   )

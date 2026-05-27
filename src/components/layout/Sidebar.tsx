@@ -171,7 +171,7 @@ export function Sidebar() {
             </div>
           </div>
           <button
-            onClick={() => navigate('/login')}
+            onClick={() => { localStorage.removeItem('ha_auth'); navigate('/login') }}
             title="Sign out"
             style={{ color: '#9AA1B2', border: 'none', background: 'none', cursor: 'pointer', padding: 6, borderRadius: 8 }}
             className="hover:bg-[#F4F5F8] hover:text-[#6B7385] transition-all">
