@@ -1,0 +1,255 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design tokens ─────────────────────────────────────────── */
+:root {
+  /* Surfaces */
+  --bg:       #F4F5F8;
+  --canvas:   #FFFFFF;
+  --soft:     #F8F9FB;
+
+  /* Ink */
+  --ink:      #0E1116;
+  --ink-2:    #2B2F38;
+  --muted:    #6B7385;
+  --muted-2:  #9AA1B2;
+
+  /* Lines */
+  --line:     #E5E7ED;
+  --line-2:   #EEF0F4;
+
+  /* Brand */
+  --primary:    #3056F4;
+  --primary-2:  #1F3FE0;
+  --primary-50: #EEF1FE;
+  --primary-100:#DCE2FE;
+  --navy:       #11154A;
+  --accent:     #6B5BFF;
+
+  /* Status */
+  --emerald:    #0F9D6E;
+  --emerald-50: #E6F6EF;
+  --amber:      #C2780A;
+  --amber-50:   #FBF1DA;
+  --rose:       #D63B5B;
+  --rose-50:    #FDECEF;
+
+  /* Shadows */
+  --shadow-card: 0 1px 0 rgba(17,21,74,.04), 0 1px 2px rgba(17,21,74,.04);
+  --shadow-pop:  0 12px 32px -8px rgba(17,21,74,.18);
+}
+
+/* ─── Base ──────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    color-scheme: light;
+    font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "ss01","ss02","cv11";
+    text-wrap: pretty;
+  }
+
+  * { border-color: var(--line); }
+
+  button, input, select, textarea {
+    @apply outline-none;
+    font-family: inherit;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #D6D9E0; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #B5BAC6; }
+}
+
+/* ─── Typography utilities ──────────────────────────────────── */
+@layer utilities {
+  /* Mono — identifiers, IDs, model names, eyebrow labels, counts */
+  .mono {
+    font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+    font-feature-settings: "zero","ss02";
+  }
+
+  /* Serif — accent italic phrase, never full paragraphs */
+  .serif {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic;
+  }
+
+  /* Eyebrow label pattern: mono + uppercase + wide tracking */
+  .eyebrow {
+    font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+    font-feature-settings: "zero","ss02";
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted-2);
+  }
+
+  /* Display headline */
+  .display-headline {
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    font-family: 'Manrope', ui-sans-serif, sans-serif;
+    text-wrap: balance;
+  }
+
+  /* Page H1 */
+  .page-h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* KPI big number */
+  .kpi-value {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  /* Focus halo — use on any interactive element */
+  .focusable:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(48,86,244,.18);
+    border-color: var(--primary) !important;
+  }
+
+  /* Active card glow */
+  .card-active {
+    border-color: var(--primary) !important;
+    box-shadow: 0 10px 30px -12px rgba(48,86,244,.18) !important;
+  }
+
+  /* Animations */
+  .fade-in  { animation: fadeIn  .35s cubic-bezier(.2,.7,.3,1) both; }
+  .float-in { animation: floatIn .50s cubic-bezier(.2,.7,.3,1) both; }
+  .pulse-ring-anim { animation: pulseRing 1.8s infinite; }
+  .shimmer-anim {
+    background: linear-gradient(90deg, var(--line) 25%, var(--soft) 50%, var(--line) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.6s infinite;
+  }
+}
+
+/* ─── Keyframes ─────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseRing {
+  0%   { transform: scale(1); opacity: 0.5; }
+  70%  { transform: scale(1.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+@keyframes shimmer {
+  from { background-position: 200% center; }
+  to   { background-position: -200% center; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Components ────────────────────────────────────────────── */
+@layer components {
+  /* Input base */
+  .input-base {
+    @apply w-full bg-white border border-[#E5E7ED] text-sm text-[#0E1116];
+    @apply placeholder:text-[#9AA1B2];
+    @apply transition-all duration-150;
+    @apply hover:border-[#C8CDD8];
+    min-height: 44px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-weight: 400;
+  }
+  .input-base:focus {
+    outline: none;
+    border-color: #3056F4;
+    box-shadow: 0 0 0 4px rgba(48,86,244,.10);
+  }
+  .input-base:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--bg);
+  }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .section-subtitle {
+    @apply text-sm mt-1;
+    color: var(--muted);
+  }
+
+  .card-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+  }
+
+  .text-muted    { color: var(--muted); }
+  .text-xs-muted { @apply text-xs; color: var(--muted-2); }
+
+  .divider-subtle {
+    @apply border-t;
+    border-color: var(--line);
+  }
+
+  .form-select {
+    @apply px-3 rounded-lg text-sm;
+    background: #fff;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    @apply focus:outline-none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239AA1B2' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 2rem;
+    appearance: none;
+    color-scheme: light;
+    transition: border-color .15s;
+    min-height: 44px;
+    font-family: 'Manrope', ui-sans-serif, sans-serif;
+    font-weight: 600;
+  }
+  .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(48,86,244,0.10);
+  }
+  .form-select option {
+    background-color: #fff;
+    color: var(--ink);
+  }
+}
