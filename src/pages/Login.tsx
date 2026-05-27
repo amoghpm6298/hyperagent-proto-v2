@@ -273,7 +273,7 @@ export function Login() {
             <div style={{ flex: 1, height: 1, background: V.line }} />
           </div>
 
-          <form onSubmit={e => { e.preventDefault(); navigate('/') }} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <form onSubmit={e => { e.preventDefault(); navigate('/dashboard') }} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {/* Email */}
             <div>
               <label style={{ fontSize: 13, fontWeight: 600, color: V.ink, display: 'block', marginBottom: 7 }}>Work email</label>

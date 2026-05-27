@@ -19,7 +19,7 @@ function HFLogo() {
 }
 
 const navItems = [
-  { label: 'Dashboard',     href: '/',               icon: LayoutDashboard },
+  { label: 'Dashboard',     href: '/dashboard',      icon: LayoutDashboard },
   { label: 'Agents',        href: '/agents',          icon: Zap },
   { label: 'Invocations',   href: '/invocations',     icon: MessageSquare },
   { label: 'Campaigns',     href: '/campaigns',       icon: Radio },
@@ -130,7 +130,7 @@ export function Sidebar() {
         {navItems.map((item) => {
           const Icon = item.icon
           const isActive = location.pathname === item.href ||
-            (item.href !== '/' && location.pathname.startsWith(item.href))
+            (item.href !== '/dashboard' && item.href !== '/' && location.pathname.startsWith(item.href))
 
           return (
             <Link
